@@ -10,11 +10,11 @@ class State(TypedDict):
 
 #Creating Nodes
 def chatbot(state:State):
-    print("Inside the chatbot node.",state)
+    print("\n\nInside the chatbot node.",state)
     return {"messages": ["Hello! Good Morning!"]}
 
 def samplenode(state:State):
-    print("Inside the sample node.",state)
+    print("\n\nInside the sample node.",state)
     return {"messages": ["This is a sample node."]}
 
 graph_builder = StateGraph(State)
@@ -32,3 +32,7 @@ graph_builder.add_edge("samplenode", END)
 
 
 graph = graph_builder.compile()
+
+
+updated_state = graph.invoke(State({"messages": ["Hi, I am Yuval"]}))
+print("\n\nUpdated Graph State:", updated_state)
