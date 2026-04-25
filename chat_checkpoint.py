@@ -45,8 +45,10 @@ with MongoDBSaver.from_conn_string(DB_URI) as checkpointer:
         }
     }
 
-    updated_state = graph_with_checkpoints.invoke(
-        State({"messages": ["Hi, What is my name and what have I built ?"]}),
-        config
-    )
-    print("\n\nUpdated Graph State:", updated_state)
+    for chunk in graph_with_checkpoints.stream(
+        State({"messages": ["What is my name ?"]}),
+        config,
+        stream_mode="values"
+    ):
+        chunk['messages'][-1].pretty_print()
+    # print("\n\nUpdated Graph State:", updated_state)
